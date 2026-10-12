@@ -1,20 +1,22 @@
 package com.example.kiemtralan2
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.example.kiemtralan2.databinding.ActivityChiTietCongViecBinding
 
 class ChiTietCongViecActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityChiTietCongViecBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_chi_tiet_cong_viec)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        binding = ActivityChiTietCongViecBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Nhận và hiển thị dữ liệu
+        val ten = intent.getStringExtra("TEN_CV") ?: "Chưa có tên"
+        val moTa = intent.getStringExtra("MO_TA_CV") ?: "Chưa có mô tả"
+
+        binding.tvTenCongViec.text = "Tên: $ten"
+        binding.tvMoTa.text = "Mô tả: $moTa"
     }
 }
