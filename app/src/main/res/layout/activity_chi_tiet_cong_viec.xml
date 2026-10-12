@@ -5,26 +5,23 @@
     android:orientation="vertical"
     android:padding="24dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CHI TIẾT CÔNG VIỆC"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="24dp"/>
-
-    <TextView
-        android:id="@+id/tvTenCongViec"
+    <EditText
+        android:id="@+id/edtSuaTen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tên: "
-        android:textSize="18sp"
+        android:hint="Tên công việc"
         android:layout_marginBottom="16dp"/>
 
-    <TextView
-        android:id="@+id/tvMoTa"
+    <EditText
+        android:id="@+id/edtSuaMoTa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mô tả: "
-        android:textSize="18sp"/>
+        android:hint="Mô tả công việc"
+        android:layout_marginBottom="24dp"/>
+
+    <Button
+        android:id="@+id/btnLuu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lưu thay đổi"/>
 </LinearLayout>
