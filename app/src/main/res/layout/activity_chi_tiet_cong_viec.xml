@@ -17,7 +17,6 @@
         android:id="@+id/tvTenCongViec"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tên: "
         android:textSize="18sp"
         android:layout_marginBottom="16dp"/>
 
@@ -25,13 +24,21 @@
         android:id="@+id/tvMoTa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mô tả: "
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Thêm CheckBox trạng thái -->
+    <CheckBox
+        android:id="@+id/cbTrangThai"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đã hoàn thành"
+        android:textSize="18sp"
+        android:layout_marginBottom="24dp"/>
 
     <Button
         android:id="@+id/btnChinhSua"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Chỉnh sửa công việc"
-        android:layout_marginTop="16dp"/>
+        android:text="Chỉnh sửa công việc"/>
 </LinearLayout>

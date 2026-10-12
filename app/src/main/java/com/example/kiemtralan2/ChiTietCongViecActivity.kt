@@ -3,19 +3,20 @@ package com.example.kiemtralan2
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kiemtralan2.databinding.ActivityChiTietCongViecBinding
 
 class ChiTietCongViecActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChiTietCongViecBinding
+    private var congViec: CongViec? = null
 
     private val editLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            val newTen = result.data?.getStringExtra("TEN_MOI")
-            val newMoTa = result.data?.getStringExtra("MOTA_MOI")
-            if (newTen != null) binding.tvTenCongViec.text = "Tên: $newTen"
-            if (newMoTa != null) binding.tvMoTa.text = "Mô tả: $newMoTa"
+            congViec?.tenCongViec = result.data?.getStringExtra("TEN_MOI") ?: ""
+            congViec?.moTa = result.data?.getStringExtra("MOTA_MOI") ?: ""
+            hienThiDuLieu()
         }
     }
 
@@ -24,17 +25,30 @@ class ChiTietCongViecActivity : AppCompatActivity() {
         binding = ActivityChiTietCongViecBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val ten = intent.getStringExtra("TEN_CV") ?: ""
-        val moTa = intent.getStringExtra("MO_TA_CV") ?: ""
+        // Nhận Object CongViec
+        congViec = intent.getSerializableExtra("CONG_VIEC") as? CongViec
+        hienThiDuLieu()
 
-        binding.tvTenCongViec.text = "Tên: $ten"
-        binding.tvMoTa.text = "Mô tả: $moTa"
+        // Xử lý Checkbox trạng thái
+        binding.cbTrangThai.setOnCheckedChangeListener { _, isChecked ->
+            congViec?.trangThai = isChecked
+            val tt = if (isChecked) "hoàn thành" else "chưa hoàn thành"
+            Toast.makeText(this, "Đánh dấu: $tt", Toast.LENGTH_SHORT).show()
+        }
 
         binding.btnChinhSua.setOnClickListener {
             val intentSua = Intent(this, ChinhSuaCongViecActivity::class.java)
-            intentSua.putExtra("TEN_CU", binding.tvTenCongViec.text.toString().removePrefix("Tên: "))
-            intentSua.putExtra("MOTA_CU", binding.tvMoTa.text.toString().removePrefix("Mô tả: "))
+            intentSua.putExtra("TEN_CU", congViec?.tenCongViec)
+            intentSua.putExtra("MOTA_CU", congViec?.moTa)
             editLauncher.launch(intentSua)
+        }
+    }
+
+    private fun hienThiDuLieu() {
+        congViec?.let {
+            binding.tvTenCongViec.text = "Tên: ${it.tenCongViec}"
+            binding.tvMoTa.text = "Mô tả: ${it.moTa}"
+            binding.cbTrangThai.isChecked = it.trangThai
         }
     }
 }
