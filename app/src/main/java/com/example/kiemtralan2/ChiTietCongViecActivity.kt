@@ -16,6 +16,10 @@ class ChiTietCongViecActivity : AppCompatActivity() {
         if (result.resultCode == Activity.RESULT_OK) {
             congViec?.tenCongViec = result.data?.getStringExtra("TEN_MOI") ?: ""
             congViec?.moTa = result.data?.getStringExtra("MOTA_MOI") ?: ""
+
+            // Đề bổ sung: Tăng số lần chỉnh sửa lên 1 khi lưu thành công
+            congViec?.soLanChinhSua = (congViec?.soLanChinhSua ?: 0) + 1
+
             hienThiDuLieu()
         }
     }
@@ -49,6 +53,9 @@ class ChiTietCongViecActivity : AppCompatActivity() {
             binding.tvTenCongViec.text = "Tên: ${it.tenCongViec}"
             binding.tvMoTa.text = "Mô tả: ${it.moTa}"
             binding.cbTrangThai.isChecked = it.trangThai
+
+            // Đề bổ sung: Hiển thị số lần chỉnh sửa ra màn hình
+            binding.tvSoLanSua.text = "Số lần chỉnh sửa: ${it.soLanChinhSua}"
         }
     }
 }
